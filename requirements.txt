@@ -1,0 +1,13 @@
+qiskit
+opencv-python
+numpy
+matplotlib
+Pillow
+streamlit
+scikit-image
+flask
+dash
+plotly
+pandas
+pytest
+scipy

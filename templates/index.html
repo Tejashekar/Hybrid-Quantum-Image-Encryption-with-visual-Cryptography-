@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ============================  HERO  ============================ -->
+<div class="hero" id="hero">
+  <h1>Quantum Image<br>Encryption</h1>
+  <p>End-to-end pipeline: upload, encrypt with XOR keying, split into visual-cryptography shares, reconstruct &amp; measure quality — all in one scroll.</p>
+
+  <div class="hero-card-wrapper">
+    <div class="hero-card">
+      <div class="hero-features">
+        <div class="hero-feat"><div class="icon">🔐</div><span>XOR Encryption</span></div>
+        <div class="hero-feat"><div class="icon">🧩</div><span>Visual Shares</span></div>
+        <div class="hero-feat"><div class="icon">📊</div><span>Security Metrics</span></div>
+        <div class="hero-feat"><div class="icon">⚛️</div><span>Quantum-Ready</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ========================  PIPELINE TIMELINE  ======================== -->
+<div class="divider"><hr></div>
+<section id="pipeline">
+  <h2 class="reveal"><span class="grad-purple">Pipeline</span> Overview</h2>
+  <p class="sub reveal">Your image flows through four stages. Scroll down to operate each step.</p>
+
+  <div class="timeline reveal">
+    <div class="tl-item {% if state.processed %}done{% endif %}">
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-title">1 &middot; Upload &amp; Preprocess</div>
+      <div class="tl-desc">Upload any image. Resized to 128×128 grayscale.</div>
+      <div class="tl-features">
+        <div class="tl-feat"><strong>Resize</strong><span>128 × 128 px</span></div>
+        <div class="tl-feat"><strong>Grayscale</strong><span>8-bit single channel</span></div>
+      </div>
+    </div>
+    <div class="tl-item {% if state.share1 and state.share2 %}done{% endif %}">
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-title">2 &middot; Encrypt + Split</div>
+      <div class="tl-desc">XOR encryption with a random key, then visual cryptography share generation.</div>
+      <div class="tl-features">
+        <div class="tl-feat"><strong>XOR Cipher</strong><span>One-time pad</span></div>
+        <div class="tl-feat"><strong>2 Shares</strong><span>Neither alone reveals data</span></div>
+      </div>
+    </div>
+    <div class="tl-item {% if state.decrypted %}done{% endif %}">
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-title">3 &middot; Reconstruct &amp; Decrypt</div>
+      <div class="tl-desc">Combine both shares, then reverse XOR to recover the original.</div>
+      <div class="tl-features">
+        <div class="tl-feat"><strong>XOR Merge</strong><span>share1 ⊕ share2</span></div>
+        <div class="tl-feat"><strong>Key Decrypt</strong><span>result ⊕ key</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+      <div class="tl-title">4 &middot; Metrics Dashboard</div>
+      <div class="tl-desc">Entropy, correlation, NPCR, UACI, PSNR — proving real security.</div>
+      <div class="tl-features">
+        <div class="tl-feat"><strong>Entropy</strong><span>Ideal ≈ 8.0</span></div>
+        <div class="tl-feat"><strong>NPCR</strong><span>Ideal ≈ 99.6%</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================  STEP 1 — UPLOAD  ======================== -->
+<div class="divider"><hr></div>
+<section id="upload">
+  <h2 class="reveal">1 &middot; <span class="grad-blue">Upload</span> &amp; Preprocess</h2>
+  <p class="sub reveal">Drag-and-drop or click to choose an image (PNG, JPG, BMP, TIFF). It will be resized to 128×128 grayscale.</p>
+
+  <form action="{{ url_for('upload_preprocess') }}" method="post" enctype="multipart/form-data" class="reveal" id="upload-form">
+    <div class="dropzone" id="dropzone">
+      <div class="dz-icon">📁</div>
+      <p><strong>Drop image here</strong> or click to browse</p>
+      <p class="mono" id="file-label" style="margin-top:8px">No file chosen</p>
+      <input type="file" name="file" accept="image/*" id="file-input">
+    </div>
+    <div style="margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button type="submit" class="btn btn-blue" id="upload-btn" disabled>Upload &amp; Process</button>
+      <span class="mono" id="file-size-label"></span>
+    </div>
+  </form>
+
+  {% if state.processed %}
+  <div class="grid2 reveal" style="margin-top:28px">
+    <div class="card">
+      <h4>📷 Original</h4>
+      <img src="{{ url_for('serve_input_file', filename=state.original) }}" alt="Original">
+    </div>
+    <div class="card">
+      <h4>🔄 Processed (128×128)</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.processed) }}" alt="Processed">
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+
+<!-- ========================  STEP 2 — ENCRYPT  ======================== -->
+<div class="divider"><hr></div>
+<section id="encrypt">
+  <h2 class="reveal">2 &middot; <span class="grad-purple">Encrypt</span> + Split</h2>
+  <p class="sub reveal">XOR-encrypt the preprocessed image with a random key, then generate two visual-cryptography shares.</p>
+
+  <form action="{{ url_for('encrypt_split') }}" method="post" class="reveal">
+    <button type="submit" class="btn btn-purple" {% if not state.processed %}disabled title="Upload first"{% endif %}>
+      🔐 Encrypt &amp; Generate Shares
+    </button>
+    {% if not state.processed %}
+      <span class="mono" style="margin-left:12px">Upload an image first</span>
+    {% endif %}
+  </form>
+
+  {% if state.encrypted %}
+  <div class="grid3 reveal" style="margin-top:28px">
+    <div class="card">
+      <h4>🔒 Encrypted</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.encrypted) }}" alt="Encrypted">
+      <a class="dl" href="{{ url_for('serve_output_file', filename=state.encrypted) }}" download>⬇ Download</a>
+    </div>
+    <div class="card">
+      <h4>🧩 Share 1</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.share1) }}" alt="Share 1">
+      <a class="dl" href="{{ url_for('serve_output_file', filename=state.share1) }}" download>⬇ Download</a>
+    </div>
+    <div class="card">
+      <h4>🧩 Share 2</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.share2) }}" alt="Share 2">
+      <a class="dl" href="{{ url_for('serve_output_file', filename=state.share2) }}" download>⬇ Download</a>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+
+<!-- ========================  STEP 3 — RECONSTRUCT  ======================== -->
+<div class="divider"><hr></div>
+<section id="reconstruct">
+  <h2 class="reveal">3 &middot; <span class="grad-emerald">Reconstruct</span> &amp; Decrypt</h2>
+  <p class="sub reveal">Combine both shares to recreate the encrypted image, then apply the key to recover the original.</p>
+
+  <form action="{{ url_for('reconstruct_decrypt') }}" method="post" enctype="multipart/form-data" class="reveal">
+    <div class="card" style="margin-bottom:16px">
+      <h4>🧩 Upload External Shares <span class="mono">(optional)</span></h4>
+      <p style="font-size:.88rem;color:var(--text2);margin-bottom:12px">Leave empty to use shares from Step 2.</p>
+      <div class="grid2">
+        <label style="display:block">
+          <span class="mono">Share 1</span>
+          <input type="file" name="share1" accept="image/*" style="display:block;margin-top:4px;color:var(--text2);font-size:.85rem">
+        </label>
+        <label style="display:block">
+          <span class="mono">Share 2</span>
+          <input type="file" name="share2" accept="image/*" style="display:block;margin-top:4px;color:var(--text2);font-size:.85rem">
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-emerald" {% if not state.share1 %}disabled title="Run encryption first"{% endif %}>
+      🔓 Reconstruct &amp; Decrypt
+    </button>
+    {% if not state.share1 %}
+      <span class="mono" style="margin-left:12px">Generate shares first</span>
+    {% endif %}
+  </form>
+
+  {% if state.decrypted %}
+  <div class="grid2 reveal" style="margin-top:28px">
+    <div class="card">
+      <h4>🔗 Reconstructed</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.reconstructed) }}" alt="Reconstructed">
+      <a class="dl" href="{{ url_for('serve_output_file', filename=state.reconstructed) }}" download>⬇ Download</a>
+    </div>
+    <div class="card">
+      <h4>✅ Decrypted</h4>
+      <img src="{{ url_for('serve_output_file', filename=state.decrypted) }}" alt="Decrypted">
+      <a class="dl" href="{{ url_for('serve_output_file', filename=state.decrypted) }}" download>⬇ Download</a>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+
+<!-- ========================  STEP 4 — METRICS  ======================== -->
+<div class="divider"><hr></div>
+<section id="metrics">
+  <h2 class="reveal">4 &middot; <span class="grad-orange">Security</span> Metrics</h2>
+  <p class="sub reveal">Quantitative proof that the encryption is strong and the reconstruction is lossless.</p>
+
+  <div class="grid5 reveal" id="metric-cards">
+    <div class="metric-card"><div class="label">Entropy</div><div class="value" id="m-entropy">—</div><div class="ideal">Ideal ≈ 8.0</div></div>
+    <div class="metric-card"><div class="label">Correlation</div><div class="value" id="m-corr">—</div><div class="ideal">Ideal ≈ 0.0</div></div>
+    <div class="metric-card"><div class="label">NPCR</div><div class="value" id="m-npcr">—</div><div class="ideal">Ideal ≈ 99.6%</div></div>
+    <div class="metric-card"><div class="label">UACI</div><div class="value" id="m-uaci">—</div><div class="ideal">Ideal ≈ 33.5%</div></div>
+    <div class="metric-card"><div class="label">PSNR</div><div class="value" id="m-psnr">—</div><div class="ideal">Higher = better</div></div>
+  </div>
+
+  <div class="reveal" style="margin-top:20px">
+    <button class="btn btn-ghost" id="load-metrics-btn" {% if not state.encrypted %}disabled{% endif %}>
+      📊 Load Metrics
+    </button>
+    {% if not state.encrypted %}
+      <span class="mono" style="margin-left:12px">Run encryption first</span>
+    {% endif %}
+  </div>
+</section>
+
+
+<!-- ========================  COMPARISON  ======================== -->
+{% if state.processed and state.decrypted %}
+<div class="divider"><hr></div>
+<section id="comparison">
+  <h2 class="reveal">Full Pipeline <span class="grad-blue">Comparison</span></h2>
+  <p class="sub reveal">Every image produced by the pipeline side-by-side.</p>
+  <div class="grid3 reveal">
+    {% if state.original %}
+    <div class="card"><h4>📷 Original</h4><img src="{{ url_for('serve_input_file', filename=state.original) }}" alt="Original"></div>
+    {% endif %}
+    <div class="card"><h4>🔄 Processed</h4><img src="{{ url_for('serve_output_file', filename=state.processed) }}" alt="Processed"></div>
+    {% if state.encrypted %}
+    <div class="card"><h4>🔒 Encrypted</h4><img src="{{ url_for('serve_output_file', filename=state.encrypted) }}" alt="Encrypted"></div>
+    {% endif %}
+    {% if state.share1 %}
+    <div class="card"><h4>🧩 Share 1</h4><img src="{{ url_for('serve_output_file', filename=state.share1) }}" alt="Share 1"></div>
+    {% endif %}
+    {% if state.share2 %}
+    <div class="card"><h4>🧩 Share 2</h4><img src="{{ url_for('serve_output_file', filename=state.share2) }}" alt="Share 2"></div>
+    {% endif %}
+    <div class="card"><h4>🔗 Reconstructed</h4><img src="{{ url_for('serve_output_file', filename=state.reconstructed) }}" alt="Reconstructed"></div>
+    <div class="card"><h4>✅ Decrypted</h4><img src="{{ url_for('serve_output_file', filename=state.decrypted) }}" alt="Decrypted"></div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ========================  INLINE JS  ======================== -->
+<script>
+(function(){
+  /* ---------- file input UX ---------- */
+  const inp = document.getElementById('file-input');
+  const label = document.getElementById('file-label');
+  const sizeLabel = document.getElementById('file-size-label');
+  const btn = document.getElementById('upload-btn');
+  if(inp){
+    inp.addEventListener('change', function(){
+      if(this.files.length){
+        const f = this.files[0];
+        label.textContent = f.name;
+        sizeLabel.textContent = (f.size/1024).toFixed(1) + ' KB';
+        btn.disabled = false;
+      } else {
+        label.textContent = 'No file chosen';
+        sizeLabel.textContent = '';
+        btn.disabled = true;
+      }
+    });
+  }
+
+  /* ---------- metrics fetch ---------- */
+  const loadBtn = document.getElementById('load-metrics-btn');
+  if(loadBtn){
+    loadBtn.addEventListener('click', async function(){
+      loadBtn.disabled = true;
+      loadBtn.textContent = '⏳ Loading…';
+      try{
+        const res = await fetch('{{ url_for("metrics_dashboard") }}');
+        const data = await res.json();
+        if(data.metrics){
+          const m = data.metrics;
+          document.getElementById('m-entropy').textContent = m.entropy_encrypted;
+          document.getElementById('m-corr').textContent = m.correlation_encrypted;
+          document.getElementById('m-npcr').textContent = m.npcr + '%';
+          document.getElementById('m-uaci').textContent = m.uaci + '%';
+          document.getElementById('m-psnr').textContent = m.psnr_original_vs_decrypted === 'N/A' ? 'N/A' : m.psnr_original_vs_decrypted + ' dB';
+        } else {
+          alert('Metrics unavailable. Run the full pipeline first.');
+        }
+      }catch(err){
+        alert('Error fetching metrics: ' + err.message);
+      }
+      loadBtn.disabled = false;
+      loadBtn.textContent = '📊 Load Metrics';
+    });
+  }
+})();
+</script>
+
+{% endblock %}
