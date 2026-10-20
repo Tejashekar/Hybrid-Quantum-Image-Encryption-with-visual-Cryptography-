@@ -1,84 +1,29 @@
-// Shared types for the pipeline state & metrics coming from Flask
-export interface PipelineState {
-  original: string | null;
-  processed: string | null;
+export type Label = "A" | "B" | "C" | "D" | "E";
+export interface ApiState {
+  stage: string;
+  label: Label | null;
+  config: Record<string, unknown> | null;
+  image: { original: string | null; processed: string | null; original_filename: string | null; original_dimensions: number[] | null; processed_shape: number[] | null; dtype: string | null };
   encrypted: string | null;
-  share1: string | null;
-  share2: string | null;
   reconstructed: string | null;
   decrypted: string | null;
+  shares: { index: number; url: string; selected: boolean }[];
+  metrics: Record<string, number | string | null> | null;
+  threshold_verified: boolean | null;
+  original: string | null; processed: string | null; encrypted_legacy: string | null; share1: string | null; share2: string | null; reconstructed_legacy: string | null; decrypted_legacy: string | null;
 }
-
-export interface Metrics {
-  entropy_encrypted: number;
-  correlation_encrypted: number;
-  npcr: number;
-  uaci: number;
-  psnr_original_vs_decrypted: number | string;
-}
-
-const BASE = ""; // proxied through next.config rewrites
-
-export async function fetchState(): Promise<PipelineState> {
-  const res = await fetch(`${BASE}/api/state`, { credentials: "include" });
-  return res.json();
-}
-
-export async function uploadImage(file: File): Promise<{ message: string; state: PipelineState }> {
-  const fd = new FormData();
-  fd.append("file", file);
-  const res = await fetch(`${BASE}/api/upload`, {
-    method: "POST",
-    body: fd,
-    credentials: "include",
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.error ?? "Upload failed");
-  }
-  return res.json();
-}
-
-export async function runEncrypt(): Promise<{ message: string; state: PipelineState }> {
-  const res = await fetch(`${BASE}/api/encrypt`, {
-    method: "POST",
-    credentials: "include",
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.error ?? "Encryption failed");
-  }
-  return res.json();
-}
-
-export async function runReconstruct(
-  share1?: File,
-  share2?: File,
-): Promise<{ message: string; state: PipelineState }> {
-  const fd = new FormData();
-  if (share1) fd.append("share1", share1);
-  if (share2) fd.append("share2", share2);
-  const res = await fetch(`${BASE}/api/reconstruct`, {
-    method: "POST",
-    body: fd,
-    credentials: "include",
-  });
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.error ?? "Reconstruction failed");
-  }
-  return res.json();
-}
-
-export async function fetchMetrics(): Promise<{ metrics: Metrics | null; state: PipelineState }> {
-  const res = await fetch(`${BASE}/api/metrics`, { credentials: "include" });
-  return res.json();
-}
-
-export function outputUrl(filename: string) {
-  return `${BASE}/output/${filename}`;
-}
-
-export function inputUrl(filename: string) {
-  return `${BASE}/input/${filename}`;
-}
+export const empty: ApiState = { stage: "idle", label: null, config: null, image: { original: null, processed: null, original_filename: null, original_dimensions: null, processed_shape: null, dtype: null }, encrypted: null, reconstructed: null, decrypted: null, shares: [], metrics: null, threshold_verified: null, original: null, processed: null, encrypted_legacy: null, share1: null, share2: null, reconstructed_legacy: null, decrypted_legacy: null };
+async function request<T>(url: string, init?: RequestInit): Promise<T> { const response = await fetch(url, { ...init, credentials: "include" }); const body = await response.json(); if (!response.ok) throw new Error(body.error ?? "Request failed"); return body; }
+export async function fetchState() { return request<ApiState>("/api/state"); }
+export async function uploadImage(file: File) { const data = new FormData(); data.append("file", file); return request<{ message: string; state: ApiState }>("/api/upload", { method: "POST", body: data }); }
+export async function encryptImage(configuration: Label, k = 2, n = 2) { return request<{ message: string; state: ApiState }>("/api/encrypt", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ configuration, k, n }) }); }
+export async function reconstruct(indices: number[]) { return request<{ message: string; state: ApiState }>("/api/reconstruct", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ indices }) }); }
+export async function fetchExperimentResults() { return request<{ rows: Record<string, unknown>[]; count: number }>("/api/experiment-results"); }
+// Compatibility exports for the earlier section components retained in the repository.
+export interface PipelineState { original: string | null; processed: string | null; encrypted: string | null; share1: string | null; share2: string | null; reconstructed: string | null; decrypted: string | null; }
+export interface Metrics { entropy_encrypted: number; correlation_encrypted: number; npcr: number; uaci: number; psnr_original_vs_decrypted: number | string; }
+export async function runEncrypt() { return encryptImage("D"); }
+export async function runReconstruct(_share1?: File, _share2?: File) { void _share1; void _share2; return reconstruct([1, 2]); }
+export async function fetchMetrics(): Promise<{ metrics: Metrics | null; state: PipelineState }> { const state = await fetchState(); return { metrics: state.metrics as Metrics | null, state: state as unknown as PipelineState }; }
+export function outputUrl(filename: string) { return `/output/${filename}`; }
+export function inputUrl(filename: string) { return `/input/${filename}`; }

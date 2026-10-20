@@ -1,0 +1,1 @@
+Figure 4 arrays are regenerated from image-001 using the fixed TEST key bytes(range(32)); TEST nonce bytes(16). They do not use the archived experiment key. Encrypt/decrypt use the project pipeline; histograms have 256 bins.

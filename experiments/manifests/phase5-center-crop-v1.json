@@ -1,0 +1,173 @@
+{
+  "manifest_version": 1,
+  "dataset_location": "experiments/real-input-7",
+  "image_file_count": 7,
+  "unique_decoded_content_count": 5,
+  "independent_sample_count": 5,
+  "content_hash_method": "SHA-256 of OpenCV decoded uint8 dtype, shape, and C-order pixel bytes",
+  "decoded_channel_convention": "OpenCV native grayscale/BGR/BGRA channel order",
+  "preprocessing": {
+    "version": "center-square-crop-resize-grayscale-v1",
+    "method": "largest centered square crop, then resize",
+    "crop": "center square with side=min(original_width, original_height)",
+    "target_size": [
+      128,
+      128
+    ],
+    "interpolation": "INTER_AREA",
+    "input_color_order": "OpenCV BGR/BGRA or grayscale",
+    "output_color_space": "grayscale",
+    "output_channels": 1,
+    "output_dtype": "uint8"
+  },
+  "samples": [
+    {
+      "content_id": "image-001",
+      "decoded_content_sha256": "5542e3d58532f3ec5052b58e22c33c217125e146d4d76ecd49c431930cfe4568",
+      "source_filename": "20240519_121151.jpg",
+      "source_filenames": [
+        "20240519_121151.jpg",
+        "original_d9e21b27e5d84c0bb09ddd92d688ac2f.jpg"
+      ],
+      "file_format": "JPEG",
+      "source_mode": "RGB",
+      "original_width": 4000,
+      "original_height": 3000,
+      "original_channels": 3,
+      "preprocessing_method": "largest centered square crop, then resize",
+      "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+      "target_size": [
+        128,
+        128
+      ],
+      "interpolation": "INTER_AREA",
+      "resulting_dimensions": [
+        128,
+        128
+      ],
+      "resulting_channels": 1,
+      "resulting_dtype": "uint8"
+    },
+    {
+      "content_id": "image-002",
+      "decoded_content_sha256": "62d804c9d5ae53ee2979b031d9067f7e7a6bba526bb040b0eb97c23e59a33f7d",
+      "source_filename": "original_3796b5dfeba745a2846c9fa9f24923c1.jpg",
+      "source_filenames": [
+        "original_3796b5dfeba745a2846c9fa9f24923c1.jpg",
+        "original_f948e6b8f4e04c6b9ca68b93512d2e2a.jpg"
+      ],
+      "file_format": "JPEG",
+      "source_mode": "RGB",
+      "original_width": 3615,
+      "original_height": 6426,
+      "original_channels": 3,
+      "preprocessing_method": "largest centered square crop, then resize",
+      "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+      "target_size": [
+        128,
+        128
+      ],
+      "interpolation": "INTER_AREA",
+      "resulting_dimensions": [
+        128,
+        128
+      ],
+      "resulting_channels": 1,
+      "resulting_dtype": "uint8"
+    },
+    {
+      "content_id": "image-003",
+      "decoded_content_sha256": "b472a0516e83c187834b03f5549f92349911afeea2da9457074c50384a3f8716",
+      "source_filename": "original_59fe9073159e4ad8a09484dc58dd28cf.jpg",
+      "source_filenames": [
+        "original_59fe9073159e4ad8a09484dc58dd28cf.jpg"
+      ],
+      "file_format": "JPEG",
+      "source_mode": "RGB",
+      "original_width": 4000,
+      "original_height": 3000,
+      "original_channels": 3,
+      "preprocessing_method": "largest centered square crop, then resize",
+      "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+      "target_size": [
+        128,
+        128
+      ],
+      "interpolation": "INTER_AREA",
+      "resulting_dimensions": [
+        128,
+        128
+      ],
+      "resulting_channels": 1,
+      "resulting_dtype": "uint8"
+    },
+    {
+      "content_id": "image-004",
+      "decoded_content_sha256": "aa88fc33bafd3bcd23cbe9efd8206aebabdd2ca5244d2aa532702cd778199c59",
+      "source_filename": "original_7b3e414550c643628f8dd864689fdf3e.jpg",
+      "source_filenames": [
+        "original_7b3e414550c643628f8dd864689fdf3e.jpg"
+      ],
+      "file_format": "JPEG",
+      "source_mode": "RGB",
+      "original_width": 2982,
+      "original_height": 3976,
+      "original_channels": 3,
+      "preprocessing_method": "largest centered square crop, then resize",
+      "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+      "target_size": [
+        128,
+        128
+      ],
+      "interpolation": "INTER_AREA",
+      "resulting_dimensions": [
+        128,
+        128
+      ],
+      "resulting_channels": 1,
+      "resulting_dtype": "uint8"
+    },
+    {
+      "content_id": "image-005",
+      "decoded_content_sha256": "856b521ab433625e4c19123fe8786b6401d27065672770c69374f37755acfe2c",
+      "source_filename": "original_b4142c39e05e456dac7447f921df9180.JPG",
+      "source_filenames": [
+        "original_b4142c39e05e456dac7447f921df9180.JPG"
+      ],
+      "file_format": "MPO",
+      "source_mode": "RGB",
+      "original_width": 7008,
+      "original_height": 4672,
+      "original_channels": 3,
+      "preprocessing_method": "largest centered square crop, then resize",
+      "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+      "target_size": [
+        128,
+        128
+      ],
+      "interpolation": "INTER_AREA",
+      "resulting_dimensions": [
+        128,
+        128
+      ],
+      "resulting_channels": 1,
+      "resulting_dtype": "uint8"
+    }
+  ],
+  "duplicate_groups": [
+    {
+      "decoded_content_sha256": "5542e3d58532f3ec5052b58e22c33c217125e146d4d76ecd49c431930cfe4568",
+      "source_filenames": [
+        "20240519_121151.jpg",
+        "original_d9e21b27e5d84c0bb09ddd92d688ac2f.jpg"
+      ]
+    },
+    {
+      "decoded_content_sha256": "62d804c9d5ae53ee2979b031d9067f7e7a6bba526bb040b0eb97c23e59a33f7d",
+      "source_filenames": [
+        "original_3796b5dfeba745a2846c9fa9f24923c1.jpg",
+        "original_f948e6b8f4e04c6b9ca68b93512d2e2a.jpg"
+      ]
+    }
+  ]
+}

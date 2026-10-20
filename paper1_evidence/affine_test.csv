@@ -1,0 +1,5 @@
+configuration,trials,nonzero_residue_trials,affine_over_GF2,rng,key_nonce
+A,200,0,True,numpy.default_rng(20261017),TEST key bytes(range(32)); TEST nonce bytes(16)
+B,200,0,True,numpy.default_rng(20261017),TEST key bytes(range(32)); TEST nonce bytes(16)
+C,200,0,True,numpy.default_rng(20261017),TEST key bytes(range(32)); TEST nonce bytes(16)
+D,200,0,True,numpy.default_rng(20261017),TEST key bytes(range(32)); TEST nonce bytes(16)

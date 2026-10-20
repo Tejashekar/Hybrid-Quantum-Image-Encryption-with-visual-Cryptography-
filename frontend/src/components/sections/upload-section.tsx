@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Upload, ImageIcon, CheckCircle2, Loader2 } from "lucide-react";
 import { usePipeline } from "@/lib/pipeline-context";
 import { uploadImage, inputUrl, outputUrl } from "@/lib/api";
-import { Button } from "@/components/ui/button";
 
 export default function UploadSection() {
   const { state, setState } = usePipeline();

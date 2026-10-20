@@ -1,0 +1,5 @@
+image_id,configuration,round_trip_exact,ciphertext_entropy_bits,key_nonce
+image-001,A,True,7.989083279989686,TEST key bytes(range(32)); TEST nonce bytes(16)
+image-001,B,True,7.988050045398007,TEST key bytes(range(32)); TEST nonce bytes(16)
+image-001,C,True,7.986569285161007,TEST key bytes(range(32)); TEST nonce bytes(16)
+image-001,D,True,7.98870113943874,TEST key bytes(range(32)); TEST nonce bytes(16)

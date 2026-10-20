@@ -1,0 +1,9 @@
+all_rejected,config_id,rejected,success_rate,successes,test_kind,trials
+,E_2_of_2,,1.0,5,valid_subset,5
+True,E_2_of_2,5,,,insufficient_shares,5
+,E_2_of_3,,1.0,15,valid_subset,15
+True,E_2_of_3,5,,,insufficient_shares,5
+,E_3_of_5,,1.0,50,valid_subset,50
+True,E_3_of_5,5,,,insufficient_shares,5
+,E_3_of_6,,1.0,100,valid_subset,100
+True,E_3_of_6,5,,,insufficient_shares,5

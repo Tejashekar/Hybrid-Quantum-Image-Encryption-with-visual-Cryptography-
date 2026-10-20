@@ -1,3 +1,5 @@
+# Historical documentation — this describes an earlier design and is not the active encryption pipeline.
+
 # Encryption Pipeline Documentation
 
 ## Overview

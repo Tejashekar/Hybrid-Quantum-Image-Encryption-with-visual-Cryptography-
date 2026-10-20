@@ -1,0 +1,40 @@
+{
+  "version": "phase6-security-v1",
+  "master_seed": 20261008,
+  "unique_image_count": 5,
+  "content_ids": [
+    "image-001",
+    "image-002",
+    "image-003",
+    "image-004",
+    "image-005"
+  ],
+  "configuration_ids": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E_2_of_2",
+    "E_2_of_3",
+    "E_3_of_5",
+    "E_3_of_6"
+  ],
+  "repetitions": 5,
+  "plaintext_deltas": [
+    1,
+    2,
+    127,
+    128,
+    255
+  ],
+  "key_byte_deltas": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+  "nonce_policy": "deterministic 16-byte SHA-256 derivation; separate purpose namespace for alternate nonce",
+  "secrets": "No secret keys stored; config/seed values are reproducibility parameters."
+}

@@ -1,0 +1,5 @@
+configuration,distinct_xor_values,most_common_value_hex,most_common_count,B_scalar_decimal,B_scalar_times_255_gf256_hex,GF_polynomial,key_nonce
+A,1,0xff,16384,,,0x11B,TEST key bytes(range(32)); TEST nonce bytes(16)
+B,1,0xf4,16384,197,0xf4,0x11B,TEST key bytes(range(32)); TEST nonce bytes(16)
+C,2,0x34,11788,,,0x11B,TEST key bytes(range(32)); TEST nonce bytes(16)
+D,2,0xed,11817,,,0x11B,TEST key bytes(range(32)); TEST nonce bytes(16)

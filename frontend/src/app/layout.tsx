@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Quantum Image Encryption + Visual Cryptography",
+  title: "Q-CRYPT | Quantum-Inspired Image Encryption",
   description:
-    "Encrypt images with quantum-inspired XOR encryption, split into visual cryptographic shares, reconstruct and analyse security metrics.",
+    "A research framework for classical simulation of quantum-inspired image encryption and GF(2^8)-based threshold image secret sharing.",
 };
 
 export default function RootLayout({
@@ -25,11 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-950 text-white`}
-      >
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

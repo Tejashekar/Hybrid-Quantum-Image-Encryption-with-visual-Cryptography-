@@ -1,0 +1,52 @@
+{
+  "captured_at_local_date": "2026-10-17",
+  "repository_root": "D:/Quantum Computing (Image Stegnography)/quantum-image-encryption-vc/quantum-image-encryption-vc",
+  "git": {
+    "commit": "dce17be25a472a6ec177a4001b15634740b588c3",
+    "branch": "main",
+    "working_tree_dirty_at_start": true,
+    "baseline_status_porcelain": [
+      " M README.md", " M app.py", " M docs/implementation/04_encryption_pipeline.md",
+      " M docs/implementation/07_ui_integration.md", " M frontend/README.md",
+      " M frontend/src/app/globals.css", " M frontend/src/app/layout.tsx", " M frontend/src/app/page.tsx",
+      " M frontend/src/components/sections/metrics-section.tsx", " M frontend/src/components/sections/upload-section.tsx",
+      " M frontend/src/lib/api.ts", " M requirements.txt", " M src/decryption.py", " M src/metrics.py",
+      " M src/pipeline.py", " M src/preprocessing.py", " M src/quantum_encryption.py",
+      " M src/visual_cryptography.py", " M tests/test_pipeline.py", " M tests/test_visual_cryptography.py",
+      "?? .archify/", "?? docs/research/", "?? experiments/", "?? main.aux",
+      "?? main.before-cleanup.tex.bak", "?? main.pdf", "?? main.tex", "?? main.tex.bak",
+      "?? src/chaotic_key.py", "?? src/diffusion.py", "?? src/key_derivation.py", "?? src/qiskit_validation.py",
+      "?? tests/test_arnold.py", "?? tests/test_chaotic_key.py", "?? tests/test_chaotic_key_phase2.py",
+      "?? tests/test_decryption.py", "?? tests/test_dense_gf256_diffusion.py", "?? tests/test_diffusion.py",
+      "?? tests/test_encryption.py", "?? tests/test_experiments.py", "?? tests/test_integrated_pipeline.py",
+      "?? tests/test_key_derivation.py", "?? tests/test_phase6_security.py", "?? tests/test_preprocessing_dataset.py",
+      "?? tests/test_qiskit_validation.py", "?? tests/test_quantum_inspired.py", "?? tests/test_research_metrics.py",
+      "?? tests/test_research_pipeline.py", "?? tests/test_threshold_pipeline_integration.py",
+      "?? tests/test_threshold_sharing.py", "?? tests/test_visual_cryptography.py"
+    ],
+    "note": "This is the baseline captured before creating paper1_evidence/. The checked-out tree was already dirty; no attempt was made to clean it."
+  },
+  "python": {
+    "version": "3.11.9",
+    "executable_used": ".venv/Scripts/python.exe",
+    "numpy": "2.4.2",
+    "opencv_python": "4.13.0.92",
+    "scipy": "1.17.1",
+    "flask": "3.1.3",
+    "cryptography": "NOT INSTALLED",
+    "qiskit": "2.3.0",
+    "pytest": "9.0.2"
+  },
+  "system": {
+    "os": "Windows 10, build 26200",
+    "cpu_model": "AMD Ryzen 5 7535U with Radeon Graphics",
+    "logical_cpu_count": 12
+  },
+  "sensitive_key_availability_check": {
+    "environment_variable_name": "QCRYPT_EXPERIMENT_KEY_HEX",
+    "environment_variable_set": false,
+    "fallback_path_configured": true,
+    "fallback_path_exists": false,
+    "values_read_or_recorded": false
+  }
+}

@@ -1,4 +1,5 @@
-qiskit
+# Validation-only small-register quantum-circuit correspondence checks.
+qiskit==2.3.0
 opencv-python
 numpy
 matplotlib

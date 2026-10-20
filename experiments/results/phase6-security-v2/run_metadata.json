@@ -1,0 +1,41 @@
+{
+  "version": "phase6-security-v2",
+  "master_seed": 20261008,
+  "unique_image_count": 5,
+  "content_ids": [
+    "image-001",
+    "image-002",
+    "image-003",
+    "image-004",
+    "image-005"
+  ],
+  "configuration_ids": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E_2_of_2",
+    "E_2_of_3",
+    "E_3_of_5",
+    "E_3_of_6"
+  ],
+  "repetitions": 5,
+  "plaintext_deltas": [
+    1,
+    2,
+    127,
+    128,
+    255
+  ],
+  "key_bit_positions": [
+    0,
+    63,
+    127,
+    191,
+    255
+  ],
+  "experiment_key_id_sha256": "0753b2ee0ced818c444fafa523b897ecadd816335cb92ef5d43a816b7e60f8a8",
+  "preprocessing_version": "center-square-crop-resize-grayscale-v1",
+  "nonce_policy": "deterministic 16-byte SHA-256 derivation; separate purpose namespace for alternate nonce",
+  "secrets": "Secret key omitted; only SHA-256 key identifier recorded. Preserve experiment key outside tracked source."
+}

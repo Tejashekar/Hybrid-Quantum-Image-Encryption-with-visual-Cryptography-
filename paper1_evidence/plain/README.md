@@ -1,0 +1,1 @@
+Preprocessed arrays use `src.preprocessing.preprocess`; deduplicated by SHA-256 of the preprocessed array bytes. No cryptographic key is used for plaintext statistics. Metrics use `src.metrics`; correlations use all adjacent pairs.

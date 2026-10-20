@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { BarChart3, RefreshCw, Loader2, ImageIcon } from "lucide-react";
+import { RefreshCw, Loader2, ImageIcon } from "lucide-react";
 import { usePipeline } from "@/lib/pipeline-context";
 import { outputUrl } from "@/lib/api";
 import { Button } from "@/components/ui/button";

@@ -1,4 +1,6 @@
-# User Interface Integration for Quantum Image Encryption + Visual Cryptography
+# Historical documentation — this describes an earlier UI implementation and is not the current active frontend architecture.
+
+## User Interface Integration for Quantum Image Encryption + Visual Cryptography
 
 ## Overview
 
