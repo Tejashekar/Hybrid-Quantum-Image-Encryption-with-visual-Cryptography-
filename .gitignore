@@ -18,3 +18,7 @@ output/*
 !.env.example
 
 *.log
+.archify/
+paper1_evidence/
+*.aux
+*.key
